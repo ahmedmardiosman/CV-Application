@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.repository.CVRepository;
 import com.qa.persistence.repository.CommentsRepository;
+import com.qa.util.EmailSender;
 
 @Service
 public class CVServiceImpl implements CVService {
@@ -24,22 +25,23 @@ public class CVServiceImpl implements CVService {
 
 	@Autowired
 	private CommentsRepository commentsRepo;
-	
-	private Boolean isCVFlagged = false;
+
+	@Autowired
+	private EmailSender emailSender;
 
 	public String uploadCV(Long userId, MultipartFile CV) throws IOException {
 //		commentsRepo.isCVFlagged(userId) == true
-		
+
 		String commentsJson = commentsRepo.findComments(userId).toString();
-		
-		
+
+		CV userCV = new CV(userId, CV.getOriginalFilename(), CV.getBytes());
 
 		if (commentsJson.contains("\"cvFlag\" : true")) {
-System.out.println("YourCV is flagged");
+			cvRepo.save(userCV);
+			emailSender.sendEmail(userId);
+
 			return "Your CV is Flagged";
 		} else {
-
-			CV userCV = new CV(userId, CV.getOriginalFilename(), CV.getBytes());
 
 			cvRepo.save(userCV);
 
