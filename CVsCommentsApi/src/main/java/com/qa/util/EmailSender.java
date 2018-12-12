@@ -25,6 +25,6 @@ public class EmailSender {
 		email.setFrom("ahmedmardiosman@gmail.com");
 		email.setText(userId + " CV is Flagged and has uploaded a new CV");
 		javaMailSender.send(email);
-		return "Flagged CV email with user info has been sent to Admin";
+		return "Email has been send to user " + userId + " as a comment has been flagged by Admin";
 	}
 }
