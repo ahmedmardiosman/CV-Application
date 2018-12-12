@@ -20,7 +20,8 @@ public class UserServiceImpl implements UserService {
 	private UserProducerJMS userProducer;
 
 	public String addUserAccount(User user) {
-		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));		userRepository.save(user);
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));		
+		userRepository.save(user);
 		userProducer.produce(user);
 		return "User Account Added Successfully";
 	}
