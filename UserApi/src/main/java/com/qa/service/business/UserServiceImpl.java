@@ -2,6 +2,7 @@ package com.qa.service.business;
 
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private UserProducerJMS userProducer;
 
 	public String addUserAccount(User user) {
-		userRepository.save(user);
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));		userRepository.save(user);
 		userProducer.produce(user);
 		return "User Account Added Successfully";
 	}
