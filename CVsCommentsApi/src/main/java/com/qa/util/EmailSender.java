@@ -23,7 +23,7 @@ public class EmailSender {
 		email.setTo(userEmail);
 		email.setSubject("Comment Flagged by an Admin User");
 		email.setFrom("ahmedmardiosman@gmail.com");
-		email.setText(" An Admin User has had a comment added to CV that needs attention");
+		email.setText(" An Admin User has added a comment to your CV that needs attention");
 		javaMailSender.send(email);
 		return "Email has been send to user " + userId + " as a comment has been flagged by Admin";
 	}
