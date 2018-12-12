@@ -17,7 +17,7 @@ public class CV {
 
 	@Column(name = "user_id")
 	private Long userId;
-	
+
 	@Column(name = "admin_email")
 	private String adminEmail = "ahmedmardiosman@gmail.com";
 
@@ -31,7 +31,7 @@ public class CV {
 	public CV() {
 
 	}
-	
+
 	public CV(Long userId, String fileName, byte[] cvFile) {
 		this.userId = userId;
 		this.fileName = fileName;
@@ -54,7 +54,7 @@ public class CV {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
+
 	public String getAdminEmail() {
 		return adminEmail;
 	}
