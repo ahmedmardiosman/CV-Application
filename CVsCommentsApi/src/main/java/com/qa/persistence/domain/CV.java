@@ -24,6 +24,9 @@ public class CV {
 	@Column(name = "user_id")
 	private Long userId;
 
+	@Column(name = "user_email")
+	private String userEmail;
+	
 	@Column(name = "file_name")
 	private String fileName;
 
@@ -40,11 +43,19 @@ public class CV {
 
 	}
 	
-	public CV(Long userId, String fileName, byte[] cvFile) {
+	public CV(Long userId,String userEmail, String fileName, byte[] cvFile) {
 		this.userId = userId;
 		this.fileName = fileName;
 		this.cvFile = cvFile;
 
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public Long getCvId() {
