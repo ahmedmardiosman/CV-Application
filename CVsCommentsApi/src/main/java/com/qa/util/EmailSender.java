@@ -27,4 +27,16 @@ public class EmailSender {
 		javaMailSender.send(email);
 		return "Email has been send to user " + userId + " as a comment has been flagged by Admin";
 	}
+	
+	public String sendFlaggedUserEmail(Long userId, String adminEmail) throws MessagingException {
+
+		SimpleMailMessage email = new SimpleMailMessage();
+
+		email.setTo(adminEmail);
+		email.setSubject("Flagged User " + userId + " has been Active");
+		email.setFrom("ahmedmardiosman@gmail.com");
+		email.setText("User " + userId +" has modified there CV");
+		javaMailSender.send(email);
+		return "Email has been send to Admin " + userId + " as a comment has been flagged by Admin";
+	}
 }

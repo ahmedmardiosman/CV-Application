@@ -8,8 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface CVService {
 
-	String uploadCV(Long userId, String email, MultipartFile CV) throws IOException;
+	String uploadCV(Long userId, String userEmail, String adminEmail, Boolean isUserFlagged, MultipartFile CV) throws IOException;
 
 	ResponseEntity<Resource> downloadCV(Long cvId);
+
 
 }

@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.repository.CVRepository;
 import com.qa.persistence.repository.CommentsRepository;
@@ -24,28 +23,23 @@ public class CVServiceImpl implements CVService {
 	private CVRepository cvRepo;
 
 	@Autowired
-	private CommentsRepository commentsRepo;
+	private EmailSender emailSender;
 
-//	@Autowired
-//	private EmailSender emailSender;
+	public String uploadCV(Long userId, String userEmail, String adminEmail, Boolean isUserFlagged, MultipartFile CV)
+			throws IOException {
 
-	public String uploadCV(Long userId, String email, MultipartFile CV) throws IOException {
-//		commentsRepo.isCVFlagged(userId) == true
+		CV userCV = new CV(userId, userEmail, adminEmail, CV.getOriginalFilename(), CV.getBytes());
 
-		String commentsJson = commentsRepo.findComments(userId).toString();
-
-		CV userCV = new CV(userId, email, CV.getOriginalFilename(), CV.getBytes());
-
-		if (commentsJson.contains("\"cvFlag\" : true")) {
+		if (isUserFlagged == true) {
 			cvRepo.save(userCV);
-//			emailSender.sendEmail(userId, email);
+			emailSender.sendFlaggedUserEmail(userId, adminEmail);
 
 			return "Your CV is Flagged";
 		} else {
 
 			cvRepo.save(userCV);
 
-			return email;
+			return "Your CV was not Flagged";
 		}
 	}
 
@@ -61,3 +55,23 @@ public class CVServiceImpl implements CVService {
 	}
 
 }
+
+//public String uploadCV(Long userId, String email, Boolean isUserFlagged, MultipartFile CV) throws IOException {
+//
+//
+//	String commentsJson = commentsRepo.findComments(userId).toString();
+//
+//	CV userCV = new CV(userId, email, CV.getOriginalFilename(), CV.getBytes());
+//
+//	if (commentsJson.contains("\"cvFlag\" : true")) {
+//		cvRepo.save(userCV);
+////		emailSender.sendEmail(userId, email);
+//
+//		return "Your CV is Flagged";
+//	} else {
+//
+//		cvRepo.save(userCV);
+//
+//		return email;
+//	}
+//}

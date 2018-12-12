@@ -25,11 +25,11 @@ public class CVEndpoints {
 	private CVService service;
 
 	@PostMapping("${URL.method.uploadCV}")
-	public String uploadCV(@PathVariable("userId") Long userId, @RequestParam("email") String email, @RequestParam("CV") MultipartFile CV)
-			throws IOException {
-		return service.uploadCV(userId, email, CV);
+	public String uploadCV(@PathVariable("userId") Long userId, @RequestParam("userEmail") String userEmail, @RequestParam("adminEmail") String adminEmail, @RequestParam("isCvFlagged") Boolean isUserFlagged,
+			@RequestParam("CV") MultipartFile CV) throws IOException {
+		return service.uploadCV(userId, userEmail, adminEmail, isUserFlagged, CV);
 	}
-	
+
 	@GetMapping("${URL.method.downloadCV}")
 	public ResponseEntity<Resource> downloadCV(@PathVariable("cvId") Long cvId) {
 		return service.downloadCV(cvId);
