@@ -38,7 +38,7 @@ public class CVServiceImpl implements CVService {
 
 		if (commentsJson.contains("\"cvFlag\" : true")) {
 			cvRepo.save(userCV);
-			emailSender.sendEmail(userId);
+			emailSender.sendEmail(userId, email);
 
 			return "Your CV is Flagged";
 		} else {
