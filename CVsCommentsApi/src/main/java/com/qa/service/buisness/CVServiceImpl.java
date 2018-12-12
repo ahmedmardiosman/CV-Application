@@ -29,12 +29,12 @@ public class CVServiceImpl implements CVService {
 	@Autowired
 	private EmailSender emailSender;
 
-	public String uploadCV(Long userId, MultipartFile CV) throws IOException {
+	public String uploadCV(Long userId, String email, MultipartFile CV) throws IOException {
 //		commentsRepo.isCVFlagged(userId) == true
 
 		String commentsJson = commentsRepo.findComments(userId).toString();
 
-		CV userCV = new CV(userId, CV.getOriginalFilename(), CV.getBytes());
+		CV userCV = new CV(userId, email, CV.getOriginalFilename(), CV.getBytes());
 
 		if (commentsJson.contains("\"cvFlag\" : true")) {
 			cvRepo.save(userCV);
