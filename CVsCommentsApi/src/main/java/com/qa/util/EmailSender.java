@@ -16,15 +16,15 @@ public class EmailSender {
 		this.javaMailSender = javaMailSender;
 	}
 
-	public String sendEmail(Long userId) throws MessagingException {
+	public String sendFlaggedCommentEmail(Long userId, String userEmail) throws MessagingException {
 
 		SimpleMailMessage email = new SimpleMailMessage();
 
-		email.setTo("ahmedmardiosman1994@gmail.com");
-		email.setSubject("Flagged User ");
+		email.setTo(userEmail);
+		email.setSubject("Comment Flagged by an Admin User");
 		email.setFrom("ahmedmardiosman@gmail.com");
-		email.setText(userId + " CV is Flagged and has uploaded a new CV");
+		email.setText(" An Admin User has had a comment added to CV that needs attention");
 		javaMailSender.send(email);
-		return "Flagged CV email with user info has been sent to Admin";
+		return "Email has been send to user " + userId + " as a comment has been flagged by Admin";
 	}
 }

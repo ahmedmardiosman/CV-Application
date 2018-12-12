@@ -25,9 +25,9 @@ public class CVEndpoints {
 	private CVService service;
 
 	@PostMapping("${URL.method.uploadCV}")
-	public String uploadCV(@PathVariable("userId") Long userId, @RequestParam("CV") MultipartFile CV)
+	public String uploadCV(@PathVariable("userId") Long userId, @RequestParam("email") String email, @RequestParam("CV") MultipartFile CV)
 			throws IOException {
-		return service.uploadCV(userId, CV);
+		return service.uploadCV(userId, email, CV);
 	}
 	
 	@GetMapping("${URL.method.downloadCV}")

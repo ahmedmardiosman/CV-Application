@@ -26,7 +26,7 @@ public class Comment {
 	private Long cvId;
 	
 	@Column(name = "cv_flag")
-	private Boolean cvFlag = false;
+	private Boolean cvFlag;
 
 	private String comment;
 
