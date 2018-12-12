@@ -16,11 +16,11 @@ public class EmailSender {
 		this.javaMailSender = javaMailSender;
 	}
 
-	public String sendEmail(Long userId) throws MessagingException {
+	public String sendEmail(Long userId, String userEmail) throws MessagingException {
 
 		SimpleMailMessage email = new SimpleMailMessage();
 
-		email.setTo("ahmedmardiosman1994@gmail.com");
+		email.setTo("userEmail");
 		email.setSubject("Flagged User ");
 		email.setFrom("ahmedmardiosman@gmail.com");
 		email.setText(userId + " CV is Flagged and has uploaded a new CV");
