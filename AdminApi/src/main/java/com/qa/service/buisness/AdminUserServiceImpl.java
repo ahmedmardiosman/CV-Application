@@ -2,6 +2,7 @@ package com.qa.service.buisness;
 
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
 	public String addAdminAccount(AdminUser adminUser) {
 
+		adminUser.setPassword(BCrypt.hashpw(adminUser.getPassword(), BCrypt.gensalt()));	
+		
 		if (adminUser.getIsSuperAdmin() == true) {
 			
 			saveAndProduce(adminUser);
