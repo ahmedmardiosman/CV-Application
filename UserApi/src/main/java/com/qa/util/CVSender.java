@@ -31,8 +31,9 @@ public class CVSender {
 		};
 
 		map.add("CV", contentsAsResource);
-
-		rest.postForObject("http://localhost:8087/CVTransfer/uploadCV/" + userId + "/" + userEmail, map, String.class);
+		map.add("email", userEmail);
+		
+		rest.postForObject("http://localhost:8087/CVTransfer/uploadCV/" + userId , map, String.class);
 		return "CV has been successfully sent";
 
 	}

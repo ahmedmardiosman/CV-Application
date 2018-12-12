@@ -26,8 +26,8 @@ public class CVServiceImpl implements CVService {
 	@Autowired
 	private CommentsRepository commentsRepo;
 
-	@Autowired
-	private EmailSender emailSender;
+//	@Autowired
+//	private EmailSender emailSender;
 
 	public String uploadCV(Long userId, String email, MultipartFile CV) throws IOException {
 //		commentsRepo.isCVFlagged(userId) == true
@@ -38,14 +38,14 @@ public class CVServiceImpl implements CVService {
 
 		if (commentsJson.contains("\"cvFlag\" : true")) {
 			cvRepo.save(userCV);
-			emailSender.sendEmail(userId, email);
+//			emailSender.sendEmail(userId, email);
 
 			return "Your CV is Flagged";
 		} else {
 
 			cvRepo.save(userCV);
 
-			return "CV has been successfully transfered to CV and Comments Database";
+			return email;
 		}
 	}
 

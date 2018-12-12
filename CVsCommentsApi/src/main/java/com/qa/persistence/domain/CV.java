@@ -45,6 +45,7 @@ public class CV {
 	
 	public CV(Long userId,String userEmail, String fileName, byte[] cvFile) {
 		this.userId = userId;
+		this.userEmail = userEmail;
 		this.fileName = fileName;
 		this.cvFile = cvFile;
 
