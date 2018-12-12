@@ -20,11 +20,16 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private Long userId;
-	
+
 	@Size(max = 12)
-	@Column(name = "user_name", unique=true)
+	@Column(name = "user_name", unique = true)
 	private String userName;
 	private String password;
+
+	@Column(name = "is_cv_Flagged")
+	private Boolean isCvFlagged = false;
+
+	public String email;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -56,6 +61,22 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getIsCvFlagged() {
+		return isCvFlagged;
+	}
+
+	public void setIsCvFlagged(Boolean isCvFlagged) {
+		this.isCvFlagged = isCvFlagged;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<CV> getCvs() {
