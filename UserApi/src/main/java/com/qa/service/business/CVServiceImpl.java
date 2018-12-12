@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.repository.CVRepository;
+import com.qa.persistence.repository.UserRepository;
 import com.qa.util.CVProducerJMS;
 import com.qa.util.CVSender;
 
@@ -24,6 +25,9 @@ public class CVServiceImpl implements CVService {
 	private CVRepository cvRepo;
 	
 	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
 	private CVProducerJMS cvProducer;
 	
 	@Autowired
@@ -33,9 +37,11 @@ public class CVServiceImpl implements CVService {
 
 		CV userCV = new CV(userId, CV.getOriginalFilename(), CV.getBytes());
 
+		String userEmail = userRepo.findById(userId).get().getEmail();
+		
 		cvRepo.save(userCV);
 		
-		cvInfo.send(userId , CV);
+		cvInfo.send(userId ,userEmail, CV);
 		
 		cvProducer.produce(userCV);
  
