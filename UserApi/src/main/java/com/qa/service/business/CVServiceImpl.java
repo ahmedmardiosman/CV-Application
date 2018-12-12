@@ -17,34 +17,35 @@ import com.qa.persistence.repository.UserRepository;
 import com.qa.util.CVProducerJMS;
 import com.qa.util.CVSender;
 
-
 @Service
 public class CVServiceImpl implements CVService {
 
 	@Autowired
 	private CVRepository cvRepo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private CVProducerJMS cvProducer;
-	
+
 	@Autowired
 	private CVSender cvInfo;
 
 	public String uploadCV(Long userId, MultipartFile CV) throws IOException {
 
 		CV userCV = new CV(userId, CV.getOriginalFilename(), CV.getBytes());
-
-		String userEmail = userRepo.findById(userId).get().getEmail();
-		
 		cvRepo.save(userCV);
 		
-		cvInfo.send(userId ,userEmail, CV);
-		
+		String userEmail = userRepo.findById(userId).get().getEmail();
+		Boolean isCvFlagged = userRepo.findById(userId).get().getIsCvFlagged();
+		String adminEmail = cvRepo.findAdminEmail(userId).get(0).getAdminEmail();
+
+		System.out.println(cvRepo.findAdminEmail(userId).get(0).toString());
+		cvInfo.send(userId, userEmail, adminEmail, isCvFlagged, CV);
+
 		cvProducer.produce(userCV);
- 
+
 		return "CV has been successfully Uploaded";
 	}
 

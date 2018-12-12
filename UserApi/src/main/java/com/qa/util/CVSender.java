@@ -19,7 +19,7 @@ public class CVSender {
 	@Autowired
 	private RestTemplate rest;
 
-	public String send(Long userId, String userEmail, MultipartFile CV) throws IOException {
+	public String send(Long userId, String userEmail, String adminEmail, Boolean isUserFlagged, MultipartFile CV) throws IOException {
 
 		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
 
@@ -31,7 +31,9 @@ public class CVSender {
 		};
 
 		map.add("CV", contentsAsResource);
-		map.add("email", userEmail);
+		map.add("userEmail", userEmail);
+		map.add("adminEmail", adminEmail);
+		map.add("isCvFlagged", isUserFlagged);
 		
 		rest.postForObject("http://localhost:8087/CVTransfer/uploadCV/" + userId , map, String.class);
 		return "CV has been successfully sent";

@@ -26,7 +26,10 @@ public class CV {
 
 	@Column(name = "user_email")
 	private String userEmail;
-	
+
+	@Column(name = "admin_email")
+	private String adminEmail;
+
 	@Column(name = "file_name")
 	private String fileName;
 
@@ -37,15 +40,15 @@ public class CV {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "cv_id", referencedColumnName = "cv_id")
 	private List<Comment> comments;
-	
-	
+
 	public CV() {
 
 	}
-	
-	public CV(Long userId,String userEmail, String fileName, byte[] cvFile) {
+
+	public CV(Long userId, String userEmail, String adminEmail, String fileName, byte[] cvFile) {
 		this.userId = userId;
 		this.userEmail = userEmail;
+		this.adminEmail = adminEmail;
 		this.fileName = fileName;
 		this.cvFile = cvFile;
 
@@ -73,6 +76,14 @@ public class CV {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public String getAdminEmail() {
+		return adminEmail;
+	}
+
+	public void setAdminEmail(String adminEmail) {
+		this.adminEmail = adminEmail;
 	}
 
 	public String getFileName() {
