@@ -38,10 +38,12 @@ public class CVServiceImpl implements CVService {
 		cvRepo.save(userCV);
 		
 		String userEmail = userRepo.findById(userId).get().getEmail();
+		System.out.println(userEmail);
 		Boolean isCvFlagged = userRepo.findById(userId).get().getIsCvFlagged();
 		String adminEmail = cvRepo.findAdminEmail(userId).get(0).getAdminEmail();
 
-		System.out.println(cvRepo.findAdminEmail(userId).get(0).toString());
+System.out.println(isCvFlagged);
+System.out.println(adminEmail);
 		cvInfo.send(userId, userEmail, adminEmail, isCvFlagged, CV);
 
 		cvProducer.produce(userCV);

@@ -25,7 +25,8 @@ public class CVEndpoints {
 	private CVService service;
 
 	@PostMapping("${URL.method.uploadCV}")
-	public String uploadCV(@PathVariable("userId") Long userId, @RequestParam("userEmail") String userEmail, @RequestParam("adminEmail") String adminEmail, @RequestParam("isCvFlagged") Boolean isUserFlagged,
+	public String uploadCV(@PathVariable("userId") Long userId, @RequestParam("userEmail") String userEmail,
+			@RequestParam("adminEmail") String adminEmail, @RequestParam("isCvFlagged") Boolean isUserFlagged,
 			@RequestParam("CV") MultipartFile CV) throws IOException {
 		return service.uploadCV(userId, userEmail, adminEmail, isUserFlagged, CV);
 	}
